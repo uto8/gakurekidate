@@ -24,6 +24,9 @@ export default function EditProfileForm({ profile }: Props) {
   const [serverError, setServerError] = useState<string | null>(null);
   const [saved, setSaved] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   function validate(): boolean {
     const e: Record<string, string> = {};
@@ -194,6 +197,7 @@ export default function EditProfileForm({ profile }: Props) {
             <div className="text-center pt-2 pb-4">
               <button
                 type="button"
+                onClick={() => setShowDeleteConfirm(true)}
                 className="text-gk-muted text-[14px] hover:text-gk-sub transition-colors"
               >
                 退会する
@@ -202,6 +206,61 @@ export default function EditProfileForm({ profile }: Props) {
           </div>
         </div>
       </div>
+
+      {/* 退会確認ダイアログ */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-black/70"
+            onClick={() => { if (!isDeleting) setShowDeleteConfirm(false); }}
+          />
+          <div className="relative w-full max-w-[360px] bg-gk-elevated rounded-2xl border border-gk-border p-6">
+            <h3 className="font-serif text-[18px] text-gk-text text-center mb-3">退会の確認</h3>
+            <p className="text-gk-sub text-[14px] text-center leading-relaxed mb-6">
+              退会すると、プロフィールやマッチング情報がすべて削除されます。この操作は取り消せません。
+            </p>
+            {deleteError && (
+              <div className="mb-4 px-3 py-2 rounded-lg bg-gk-error/10 border border-gk-error/30">
+                <p className="text-gk-error text-[13px]">{deleteError}</p>
+              </div>
+            )}
+            <div className="flex flex-col gap-3">
+              <button
+                type="button"
+                onClick={async () => {
+                  setIsDeleting(true);
+                  setDeleteError(null);
+                  try {
+                    const res = await fetch("/api/account", { method: "DELETE" });
+                    if (!res.ok) {
+                      const json = await res.json();
+                      setDeleteError(json.error ?? "退会処理に失敗しました");
+                      setIsDeleting(false);
+                      return;
+                    }
+                    window.location.href = "/login";
+                  } catch {
+                    setDeleteError("通信エラーが発生しました");
+                    setIsDeleting(false);
+                  }
+                }}
+                disabled={isDeleting}
+                className="w-full h-[48px] rounded-lg bg-gk-error/20 border border-gk-error/50 text-gk-error text-[15px] font-medium transition-opacity hover:opacity-80 disabled:opacity-50"
+              >
+                {isDeleting ? "処理中..." : "退会する"}
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowDeleteConfirm(false)}
+                disabled={isDeleting}
+                className="w-full h-[48px] rounded-lg border border-gk-border text-gk-sub text-[15px] transition-colors hover:border-gk-gold hover:text-gk-gold disabled:opacity-50"
+              >
+                キャンセル
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
