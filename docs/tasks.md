@@ -1,6 +1,6 @@
 # 実装タスク一覧 — gakureki-date MVP
 
-最終更新: 2026-05-14（Phase 1・2 完了）
+最終更新: 2026-05-14（Phase 1・2・3 完了）
 
 凡例: `[ ]` 未着手 / `[x]` 完了
 
@@ -71,15 +71,15 @@
 ### Phase 3: アプリ基盤
 
 #### 3-1. 共通型定義（`src/types/index.ts`）
-- [ ] `ActionResult<T>`, `Gender`, `Profile`, `Match`, `Message` を定義する
+- [x] `ActionResult<T>`, `Gender`, `Profile`, `Match`, `Message` を定義する
 - **完了条件**: `tsc --noEmit` がエラーなく通る
 
 #### 3-2. utils.ts 作成
-- [ ] `cn()`（clsx + tailwind-merge）, `calcBirthDateBound(age: number): string`（年齢→ birth_date 境界値変換）, `supabaseErrorToMessage(error: unknown): string` を実装する
+- [x] `cn()`（clsx + tailwind-merge）, `calcBirthDateBound(age: number): string`（年齢→ birth_date 境界値変換）, `supabaseErrorToMessage(error: unknown): string` を実装する
 - **完了条件**: Vitest で `calcBirthDateBound` と `supabaseErrorToMessage` のユニットテストが通る
 
 #### 3-3. middleware.ts 実装
-- [ ] 保護対象パス（`/discover`, `/likes`, `/matches`, `/chat/:matchId`, `/profile/:userId`, `/profile/edit`）への未認証アクセスを `/login` へリダイレクトする。認証済みで `/login` / `/register` へのアクセスは `/discover` へリダイレクトする
+- [x] 保護対象パス（`/discover`, `/likes`, `/matches`, `/chat/:matchId`, `/profile/:userId`, `/profile/edit`）への未認証アクセスを `/login` へリダイレクトする。認証済みで `/login` / `/register` へのアクセスは `/discover` へリダイレクトする
 - **完了条件**: ログアウト状態で `/discover` に直アクセスすると `/login` へ飛ぶ
 
 ---
