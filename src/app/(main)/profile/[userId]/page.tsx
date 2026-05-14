@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { getUserProfileAction } from "@/lib/actions/profile";
+import ProfileDetailClient from "@/components/profile/ProfileDetailClient";
 
 type Props = { params: Promise<{ userId: string }> };
 
@@ -18,7 +19,25 @@ export default async function ProfileDetailPage({ params }: Props) {
     redirect("/profile/edit");
   }
 
-  const { data: profile, error } = await getUserProfileAction(userId);
+  const [{ data: profile, error }, likeResult, myProfileResult] =
+    await Promise.all([
+      getUserProfileAction(userId),
+      user
+        ? supabase
+            .from("likes")
+            .select("id")
+            .eq("from_user_id", user.id)
+            .eq("to_user_id", userId)
+            .maybeSingle()
+        : Promise.resolve({ data: null, error: null }),
+      user
+        ? supabase
+            .from("profiles")
+            .select("name, photo_url")
+            .eq("id", user.id)
+            .maybeSingle()
+        : Promise.resolve({ data: null, error: null }),
+    ]);
 
   if (error || !profile) {
     return (
@@ -37,6 +56,9 @@ export default async function ProfileDetailPage({ params }: Props) {
   }
 
   const genderLabel = profile.gender === "male" ? "男性" : "女性";
+  const myName: string = myProfileResult.data?.name ?? "";
+  const myPhotoUrl: string | null = myProfileResult.data?.photo_url ?? null;
+  const initialLiked = likeResult.data !== null;
 
   return (
     <div className="flex justify-center">
@@ -63,19 +85,19 @@ export default async function ProfileDetailPage({ params }: Props) {
               priority
             />
           ) : (
-            <div className="flex items-center justify-center h-full"
-              style={{ background: "linear-gradient(135deg, #1a1040 0%, #0d2040 100%)" }}>
+            <div
+              className="flex items-center justify-center h-full"
+              style={{ background: "linear-gradient(135deg, #1a1040 0%, #0d2040 100%)" }}
+            >
               <span className="text-[80px] font-serif text-white/20">
                 {profile.name.charAt(0)}
               </span>
             </div>
           )}
-          {/* グラデーションオーバーレイ */}
           <div
             className="absolute inset-x-0 bottom-0 h-2/5"
             style={{ background: "linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.6) 50%, transparent 100%)" }}
           />
-          {/* 名前・年齢 */}
           <div className="absolute bottom-4 left-4">
             <p className="text-white text-[22px] font-medium leading-tight">{profile.name}</p>
             <p className="text-white/80 text-[15px]">{profile.age}歳</p>
@@ -84,7 +106,6 @@ export default async function ProfileDetailPage({ params }: Props) {
 
         {/* コンテンツエリア */}
         <div className="px-4 pb-36 pt-5">
-          {/* 学歴セクション */}
           <div className="pl-3 border-l-2 border-gk-gold mb-5">
             <p className="text-gk-muted text-[12px] mb-1 uppercase tracking-widest">Education</p>
             <p className="text-gk-gold text-[16px] font-medium">{profile.university}</p>
@@ -94,7 +115,6 @@ export default async function ProfileDetailPage({ params }: Props) {
             </p>
           </div>
 
-          {/* 自己紹介 */}
           {profile.bio && (
             <div className="mb-5">
               <p className="text-gk-muted text-[12px] mb-2 uppercase tracking-widest">About</p>
@@ -102,7 +122,6 @@ export default async function ProfileDetailPage({ params }: Props) {
             </div>
           )}
 
-          {/* 基本情報グリッド */}
           <div className="bg-gk-surface rounded-xl p-4 border border-gk-border">
             <div className="grid grid-cols-2 gap-3">
               <div>
@@ -125,19 +144,15 @@ export default async function ProfileDetailPage({ params }: Props) {
           </div>
         </div>
 
-        {/* いいねボタン（固定フッター）*/}
-        <div className="fixed bottom-16 left-0 right-0 z-40">
-          <div className="max-w-[480px] mx-auto px-4 py-3 bg-gk-base border-t border-gk-border">
-            <button
-              className="w-full h-[52px] rounded-lg text-gk-base font-medium text-[15px] flex items-center justify-center gap-2 bg-[linear-gradient(135deg,#9A7A2E,#C9A84C,#E8C87A)]"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-              いいね
-            </button>
-          </div>
-        </div>
+        {/* いいねボタン + マッチングバナー（Client Component） */}
+        <ProfileDetailClient
+          targetProfile={profile}
+          myProfile={{
+            initial: myName.charAt(0) || "?",
+            photoUrl: myPhotoUrl,
+          }}
+          initialLiked={initialLiked}
+        />
       </div>
     </div>
   );

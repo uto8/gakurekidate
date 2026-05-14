@@ -1,6 +1,6 @@
 # 実装タスク一覧 — gakureki-date MVP
 
-最終更新: 2026-05-14（Phase 1・2・3・4・5・6・7 完了）
+最終更新: 2026-05-14（Phase 1・2・3・4・5・6・7・8 完了）
 
 凡例: `[ ]` 未着手 / `[x]` 完了
 
@@ -143,19 +143,19 @@
 ### Phase 8: いいね
 
 #### 8-1. Route Handler: `POST /api/likes`
-- [ ] いいね送信・重複チェック（409）・相互いいね判定・`matches` INSERT をまとめて実装する。`user1_id < user2_id` を保証してから INSERT する
+- [x] いいね送信・重複チェック（409）・相互いいね判定・`matches` INSERT をまとめて実装する。`user1_id < user2_id` を保証してから INSERT する
 - **完了条件**: 初回いいねで `{ matched: false }` が返る。相互いいね時に `{ matched: true, matchId }` が返り `matches` レコードが作成される。重複いいねで 409 が返る
 
 #### 8-2. LikeButton コンポーネント
-- [ ] `POST /api/likes` を呼び出す `LikeButton` を実装する。`isPending` 中はボタンを disabled にする。`matched: true` のレスポンス時に `onMatch` コールバックを呼び出す
+- [x] `POST /api/likes` を呼び出す `LikeButton` を実装する。`isPending` 中はボタンを disabled にする。`matched: true` のレスポンス時に `onMatch` コールバックを呼び出す
 - **完了条件**: いいね送信中はボタンが無効化される。マッチング成立時に `onMatch` が呼ばれる
 
 #### 8-3. MatchBanner + useMatchBanner
-- [ ] `useMatchBanner` フック（React state のみ）と `MatchBanner` コンポーネント（固定表示・チャットへのリンク）を実装する
+- [x] `useMatchBanner` フック（React state のみ）と `MatchBanner` コンポーネント（固定表示・チャットへのリンク）を実装する
 - **完了条件**: マッチング成立直後にバナーが表示され、「メッセージを送る」でチャット画面へ遷移できる。「閉じる」でバナーが消える
 
 #### 8-4. 受信いいね一覧ページ（`/likes`）
-- [ ] `getReceivedLikesAction` を実装し、自分にいいねを送ってきたユーザーを `ProfileCard` で一覧表示する
+- [x] `getReceivedLikesAction` を実装し、自分にいいねを送ってきたユーザーを `ProfileCard` で一覧表示する
 - **完了条件**: 受信いいね一覧に送信者のプロフィール・学歴が表示される。退会済みユーザーからのいいねは除外される
 
 ---

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { Profile } from "@/types";
 
-type Props = { profile: Profile };
+type Props = { profile: Profile; variant?: "discover" | "likes" };
 
 // イニシャルごとに異なる背景グラデーションを返す（文字コードで分散）
 function gradientForName(name: string): string {
@@ -18,7 +18,7 @@ function gradientForName(name: string): string {
   return gradients[code % gradients.length];
 }
 
-export default function ProfileCard({ profile }: Props) {
+export default function ProfileCard({ profile, variant = "discover" }: Props) {
   return (
     <Link
       href={`/profile/${profile.id}`}
@@ -26,6 +26,14 @@ export default function ProfileCard({ profile }: Props) {
     >
       {/* 写真エリア（4:5） */}
       <div className="relative aspect-[4/5]">
+        {/* likes バリアント: 右上にゴールドハートバッジ */}
+        {variant === "likes" && (
+          <div className="absolute top-2 right-2 z-10 w-7 h-7 rounded-full flex items-center justify-center bg-gk-gold">
+            <svg className="w-4 h-4 text-gk-base" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+          </div>
+        )}
         {profile.photo_url ? (
           <Image
             src={profile.photo_url}
