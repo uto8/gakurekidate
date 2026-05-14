@@ -44,6 +44,30 @@ const ERROR_MAP: Record<string, string> = {
   PGRST116: "データが見つかりません",
 };
 
+/**
+ * 年齢範囲の入力値が有効かを判定する純粋関数。
+ * 両方 undefined の場合はフィルターなし（有効）。
+ * min <= max かつ 18〜99 歳の範囲内であること。
+ */
+export function validateAgeRange(
+  ageMin?: number,
+  ageMax?: number
+): { valid: boolean; error?: string } {
+  if (ageMin === undefined && ageMax === undefined) {
+    return { valid: true };
+  }
+  if (ageMin !== undefined && (ageMin < 18 || ageMin > 99)) {
+    return { valid: false, error: "年齢は18〜99歳で入力してください" };
+  }
+  if (ageMax !== undefined && (ageMax < 18 || ageMax > 99)) {
+    return { valid: false, error: "年齢は18〜99歳で入力してください" };
+  }
+  if (ageMin !== undefined && ageMax !== undefined && ageMin > ageMax) {
+    return { valid: false, error: "年齢下限は上限以下にしてください" };
+  }
+  return { valid: true };
+}
+
 export function supabaseErrorToMessage(error: unknown): string {
   if (error instanceof Error) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

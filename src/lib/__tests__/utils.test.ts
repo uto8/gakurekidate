@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
-import { calcBirthDateBound, isAdult, supabaseErrorToMessage } from "../utils";
+import { calcBirthDateBound, isAdult, supabaseErrorToMessage, validateAgeRange } from "../utils";
 
 // --- calcBirthDateBound ---
 
@@ -140,5 +140,51 @@ describe("supabaseErrorToMessage", () => {
     expect(supabaseErrorToMessage(null)).toBe(
       "予期しないエラーが発生しました"
     );
+  });
+});
+
+// --- validateAgeRange ---
+
+describe("validateAgeRange", () => {
+  it("両方 undefined の場合は valid", () => {
+    expect(validateAgeRange()).toEqual({ valid: true });
+  });
+
+  it("min のみ指定（18歳）は valid", () => {
+    expect(validateAgeRange(18, undefined)).toEqual({ valid: true });
+  });
+
+  it("max のみ指定（99歳）は valid", () => {
+    expect(validateAgeRange(undefined, 99)).toEqual({ valid: true });
+  });
+
+  it("min <= max の正常ケース", () => {
+    expect(validateAgeRange(25, 32)).toEqual({ valid: true });
+  });
+
+  it("min === max は valid", () => {
+    expect(validateAgeRange(30, 30)).toEqual({ valid: true });
+  });
+
+  it("min > max はエラー", () => {
+    const result = validateAgeRange(35, 25);
+    expect(result.valid).toBe(false);
+    expect(result.error).toContain("下限は上限以下");
+  });
+
+  it("min が 17（18歳未満）はエラー", () => {
+    const result = validateAgeRange(17, 30);
+    expect(result.valid).toBe(false);
+    expect(result.error).toContain("18〜99");
+  });
+
+  it("max が 100（99歳超）はエラー", () => {
+    const result = validateAgeRange(25, 100);
+    expect(result.valid).toBe(false);
+    expect(result.error).toContain("18〜99");
+  });
+
+  it("min が 0 はエラー", () => {
+    expect(validateAgeRange(0, 30).valid).toBe(false);
   });
 });
