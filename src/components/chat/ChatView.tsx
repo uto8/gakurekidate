@@ -42,7 +42,10 @@ export default function ChatView({
   partner,
   initialMessages,
 }: Props) {
-  const messages = useMessages(matchId, initialMessages);
+  const { messages, addOptimistic, rollbackOptimistic } = useMessages(
+    matchId,
+    initialMessages
+  );
   const bottomRef = useRef<HTMLDivElement>(null);
   const isPartnerDeleted = partner.deleted_at !== null;
 
@@ -52,8 +55,10 @@ export default function ChatView({
   }, [messages]);
 
   async function handleSend(content: string) {
+    const tempId = addOptimistic(content, currentUserId);
     const result = await sendMessageAction(matchId, content);
     if (result.error) {
+      rollbackOptimistic(tempId);
       throw new Error(result.error);
     }
   }
