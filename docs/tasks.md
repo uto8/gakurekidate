@@ -1,6 +1,6 @@
 # 実装タスク一覧 — gakureki-date MVP
 
-最終更新: 2026-05-14（Phase 1 完了）
+最終更新: 2026-05-14（Phase 1・2 完了）
 
 凡例: `[ ]` 未着手 / `[x]` 完了
 
@@ -35,35 +35,35 @@
 ### Phase 2: DB 基盤
 
 #### 2-1. profiles テーブル作成・RLS 設定
-- [ ] マイグレーションファイルを作成し、`profiles` テーブル（`id`, `name`, `birth_date`, `gender`, `bio`, `photo_url`, `deleted_at`, `created_at`, `updated_at`）と RLS ポリシー 3 件（select / insert / update）を適用する
+- [x] マイグレーションファイルを作成し、`profiles` テーブル（`id`, `name`, `birth_date`, `gender`, `bio`, `photo_url`, `deleted_at`, `created_at`, `updated_at`）と RLS ポリシー 3 件（select / insert / update）を適用する
 - **完了条件**: `supabase db push` が通る。退会済みユーザーが他者から見えないことを Supabase Studio で確認できる
 
 #### 2-2. educations テーブル作成・RLS 設定
-- [ ] `educations` テーブル（`id`, `user_id UNIQUE FK`, `university`, `faculty`, `graduation_year`, タイムスタンプ）と RLS ポリシー（select: 全員可 / all: 本人のみ）を作成する
+- [x] `educations` テーブル（`id`, `user_id UNIQUE FK`, `university`, `faculty`, `graduation_year`, タイムスタンプ）と RLS ポリシー（select: 全員可 / all: 本人のみ）を作成する
 - **完了条件**: `user_id` に UNIQUE 制約が効いており、同一ユーザーの二重挿入が拒否される
 
 #### 2-3. likes テーブル作成・RLS 設定
-- [ ] `likes` テーブル（UNIQUE(from, to) / CHECK(from <> to)）と RLS ポリシー（select: 関与者のみ / insert: 本人のみ）を作成する
+- [x] `likes` テーブル（UNIQUE(from, to) / CHECK(from <> to)）と RLS ポリシー（select: 関与者のみ / insert: 本人のみ）を作成する
 - **完了条件**: 自己いいねと重複いいねがそれぞれ DB 制約で拒否される
 
 #### 2-4. matches テーブル作成・RLS 設定
-- [ ] `matches` テーブル（CHECK(user1_id < user2_id) / UNIQUE(user1, user2)）と RLS ポリシー（select: 当事者のみ）を作成する
+- [x] `matches` テーブル（CHECK(user1_id < user2_id) / UNIQUE(user1, user2)）と RLS ポリシー（select: 当事者のみ）を作成する
 - **完了条件**: `user1_id >= user2_id` での INSERT が CHECK 違反になる
 
 #### 2-5. messages テーブル作成・RLS 設定
-- [ ] `messages` テーブル（`sender_id` は `ON DELETE SET NULL` / CHECK 1〜1000 文字）と RLS ポリシー（マッチ参加者のみ読み書き可）を作成する
+- [x] `messages` テーブル（`sender_id` は `ON DELETE SET NULL` / CHECK 1〜1000 文字）と RLS ポリシー（マッチ参加者のみ読み書き可）を作成する
 - **完了条件**: 第三者がマッチ外のメッセージを SELECT できないことを Supabase Studio で確認できる
 
 #### 2-6. profiles_with_age ビュー作成
-- [ ] `profiles_with_age` ビューを作成する（`profiles` LEFT JOIN `educations`、`age` を `date_part('year', age(birth_date))` で動的計算）
+- [x] `profiles_with_age` ビューを作成する（`profiles` LEFT JOIN `educations`、`age` を `date_part('year', age(birth_date))` で動的計算）
 - **完了条件**: ビューに対して SELECT するだけで `age`, `university`, `faculty`, `graduation_year` が返る
 
 #### 2-7. インデックス作成
-- [ ] `profiles(gender, birth_date) WHERE deleted_at IS NULL`, `educations(university text_pattern_ops)`, `likes(to_user_id)`, `likes(from_user_id)`, `matches(user1_id)`, `matches(user2_id)`, `messages(match_id, created_at)` の 7 本を追加する
+- [x] `profiles(gender, birth_date) WHERE deleted_at IS NULL`, `educations(university text_pattern_ops)`, `likes(to_user_id)`, `likes(from_user_id)`, `matches(user1_id)`, `matches(user2_id)`, `messages(match_id, created_at)` の 7 本を追加する
 - **完了条件**: `\d profiles` 等でインデックスが確認できる
 
 #### 2-8. Supabase 型生成・Supabase クライアント作成
-- [ ] `supabase gen types typescript --local > src/types/database.ts` を実行し、`src/lib/supabase/client.ts`（`createBrowserClient`）と `src/lib/supabase/server.ts`（`createServerClient` + cookies）を作成する
+- [x] `supabase gen types typescript --local > src/types/database.ts` を実行し、`src/lib/supabase/client.ts`（`createBrowserClient`）と `src/lib/supabase/server.ts`（`createServerClient` + cookies）を作成する
 - **完了条件**: `database.ts` が生成されており、`client.ts` / `server.ts` がインポートエラーなしにコンパイルできる
 
 ---
