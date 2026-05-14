@@ -51,6 +51,7 @@ export default function PhotoUpload({ userId, currentPhotoUrl }: Props) {
         .upload(path, file, { upsert: true });
 
       if (uploadError) {
+        console.log("===uploadError", uploadError)
         setError("写真のアップロードに失敗しました");
         return;
       }
