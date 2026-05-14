@@ -1,6 +1,6 @@
 # 実装タスク一覧 — gakureki-date MVP
 
-最終更新: 2026-05-14（Phase 1・2・3 完了）
+最終更新: 2026-05-14（Phase 1・2・3・4・5・6 完了）
 
 凡例: `[ ]` 未着手 / `[x]` 完了
 
@@ -87,15 +87,15 @@
 ### Phase 4: 認証
 
 #### 4-1. 登録ページ（`/register`）+ Server Action
-- [ ] メールアドレス・パスワード入力フォームを作成し、`registerAction` を実装する（Supabase Auth の `signUp` を呼び出し、成功後 `/onboarding` へリダイレクト）
+- [x] メールアドレス・パスワード入力フォームを作成し、`registerAction` を実装する（Supabase Auth の `signUp` を呼び出し、成功後 `/onboarding` へリダイレクト）
 - **完了条件**: 登録後に Supabase Auth のユーザー一覧にメールが表示される。メール重複時にエラーメッセージが表示される
 
 #### 4-2. ログインページ（`/login`）+ Server Action
-- [ ] メールアドレス・パスワード入力フォームを作成し、`loginAction` を実装する（成功後 `/discover` へリダイレクト。education 未登録なら `/onboarding` へ）
+- [x] メールアドレス・パスワード入力フォームを作成し、`loginAction` を実装する（成功後 `/discover` へリダイレクト。education 未登録なら `/onboarding` へ）
 - **完了条件**: 正しい認証情報でログインして `/discover` に遷移できる。誤認証時にエラーメッセージが表示される
 
 #### 4-3. ログアウト処理
-- [ ] ナビゲーションにログアウトボタンを設置し、`logoutAction` を実装する（`signOut` → `/login` リダイレクト）
+- [x] ナビゲーションにログアウトボタンを設置し、`logoutAction` を実装する（`signOut` → `/login` リダイレクト）
 - **完了条件**: ログアウト後に保護ページへアクセスすると `/login` へリダイレクトされる
 
 ---
@@ -103,11 +103,11 @@
 ### Phase 5: オンボーディング
 
 #### 5-1. `(main)/layout.tsx`（education チェック）
-- [ ] Server Component で現在ユーザーの `educations` 行の有無を確認し、未登録なら `/onboarding` へリダイレクトする
+- [x] Server Component で現在ユーザーの `educations` 行の有無を確認し、未登録なら `/onboarding` へリダイレクトする
 - **完了条件**: education 未登録のユーザーが `/discover` にアクセスすると `/onboarding` へ飛ぶ。education 登録済みのユーザーは `/onboarding` へリダイレクトされない
 
 #### 5-2. オンボーディングページ（`/onboarding`）+ Server Action
-- [ ] 名前・生年月日・性別・自己紹介（任意）・大学名・学部・卒業年度の入力フォームを作成し、`createProfileAction` を実装する（`profiles` + `educations` をトランザクション的に INSERT。成功後 `/discover` へ）
+- [x] 名前・生年月日・性別・自己紹介（任意）・大学名・学部・卒業年度の入力フォームを作成し、`createProfileAction` を実装する（`profiles` + `educations` をトランザクション的に INSERT。成功後 `/discover` へ）
 - **完了条件**: 入力後に `profiles` と `educations` の両レコードが作成される。17歳以下の `birth_date` はエラーになる
 
 ---
@@ -115,15 +115,15 @@
 ### Phase 6: プロフィール
 
 #### 6-1. 他者プロフィール詳細ページ（`/profile/[userId]`）
-- [ ] `getUserProfileAction` を実装し、名前・年齢・性別・自己紹介・学歴・写真を表示する。退会済みユーザーは「退会済みユーザー」と表示する
+- [x] `getUserProfileAction` を実装し、名前・年齢・性別・自己紹介・学歴・写真を表示する。退会済みユーザーは「退会済みユーザー」と表示する
 - **完了条件**: `/profile/[有効なuserID]` で全フィールドが表示される。退会済みユーザーの ID へのアクセスで「退会済みユーザー」が表示される
 
 #### 6-2. プロフィール編集ページ（`/profile/edit`）+ Server Action
-- [ ] 各フィールドを編集できるフォームを作成し、`updateProfileAction` を実装する（`profiles` と `educations` を個別に UPDATE）
+- [x] 各フィールドを編集できるフォームを作成し、`updateProfileAction` を実装する（`profiles` と `educations` を個別に UPDATE）
 - **完了条件**: 変更を保存後にプロフィール詳細ページに反映されている
 
 #### 6-3. プロフィール写真アップロード
-- [ ] ファイル選択 UI を作成し、Supabase Storage の `avatars` バケットへアップロードする。取得した URL を `profiles.photo_url` に保存する
+- [x] ファイル選択 UI を作成し、Supabase Storage の `avatars` バケットへアップロードする。取得した URL を `profiles.photo_url` に保存する
 - **完了条件**: 写真を選択・保存すると `photo_url` が更新され、プロフィールに画像が表示される。別ユーザーによる上書きが Storage RLS で拒否される
 
 ---

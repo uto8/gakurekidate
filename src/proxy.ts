@@ -7,11 +7,12 @@ const PROTECTED_PATHS = [
   "/matches",
   "/chat",
   "/profile",
+  "/onboarding",
 ];
 
 const AUTH_PATHS = ["/login", "/register"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const response = NextResponse.next({

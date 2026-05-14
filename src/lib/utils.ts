@@ -22,6 +22,18 @@ export function calcBirthDateBound(age: number): string {
   return `${yyyy}-${mm}-${dd}`;
 }
 
+/**
+ * 生年月日文字列（YYYY-MM-DD）が 18 歳以上かを判定する。
+ * 文字列比較を使うため timezone の影響を受けない。
+ */
+export function isAdult(birthDateStr: string): boolean {
+  const today = new Date();
+  const y = today.getFullYear() - 18;
+  const m = String(today.getMonth() + 1).padStart(2, "0");
+  const d = String(today.getDate()).padStart(2, "0");
+  return birthDateStr <= `${y}-${m}-${d}`;
+}
+
 const ERROR_MAP: Record<string, string> = {
   invalid_credentials: "メールアドレスまたはパスワードが正しくありません",
   email_address_already_exists:

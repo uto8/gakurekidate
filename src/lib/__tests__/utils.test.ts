@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll, vi } from "vitest";
-import { calcBirthDateBound, supabaseErrorToMessage } from "../utils";
+import { calcBirthDateBound, isAdult, supabaseErrorToMessage } from "../utils";
 
 // --- calcBirthDateBound ---
 
@@ -40,6 +40,39 @@ describe("calcBirthDateBound", () => {
     vi.setSystemTime(new Date("2026-05-14"));
     const result = calcBirthDateBound(20);
     expect(result).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+  });
+});
+
+// --- isAdult ---
+
+describe("isAdult", () => {
+  beforeAll(() => {
+    vi.useFakeTimers();
+    vi.setSystemTime(new Date("2026-05-14"));
+  });
+
+  afterAll(() => {
+    vi.useRealTimers();
+  });
+
+  it("ちょうど18年前（2008-05-14）は true", () => {
+    expect(isAdult("2008-05-14")).toBe(true);
+  });
+
+  it("18年前の翌日（2008-05-15）は false", () => {
+    expect(isAdult("2008-05-15")).toBe(false);
+  });
+
+  it("25歳（2001-01-01）は true", () => {
+    expect(isAdult("2001-01-01")).toBe(true);
+  });
+
+  it("17歳（2009-05-14）は false", () => {
+    expect(isAdult("2009-05-14")).toBe(false);
+  });
+
+  it("17歳の最終日（2008-05-13 の翌日 = 2008-05-14 は18歳）", () => {
+    expect(isAdult("2008-05-13")).toBe(true);
   });
 });
 
