@@ -68,6 +68,34 @@ export function validateAgeRange(
   return { valid: true };
 }
 
+/** ISO 文字列 → "HH:mm" 形式（チャットバブルのタイムスタンプ用） */
+export function formatMessageTime(isoString: string): string {
+  const d = new Date(isoString);
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mm = String(d.getMinutes()).padStart(2, "0");
+  return `${hh}:${mm}`;
+}
+
+/** ISO 文字列 → "今日" / "昨日" / "YYYY年MM月DD日"（DateSeparator 用） */
+export function formatMessageDate(isoString: string): string {
+  const d = new Date(isoString);
+  const today = new Date();
+  const toDateStr = (date: Date) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+
+  const msgDateStr = toDateStr(d);
+  const todayStr = toDateStr(today);
+
+  const yesterday = new Date(today);
+  yesterday.setDate(today.getDate() - 1);
+  const yesterdayStr = toDateStr(yesterday);
+
+  if (msgDateStr === todayStr) return "今日";
+  if (msgDateStr === yesterdayStr) return "昨日";
+
+  return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
+}
+
 export function supabaseErrorToMessage(error: unknown): string {
   if (error instanceof Error) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,6 +1,6 @@
 # 実装タスク一覧 — gakureki-date MVP
 
-最終更新: 2026-05-14（Phase 1・2・3・4・5・6・7・8・9 完了）
+最終更新: 2026-05-14（Phase 1・2・3・4・5・6・7・8・9・10 完了）
 
 凡例: `[ ]` 未着手 / `[x]` 完了
 
@@ -171,23 +171,23 @@
 ### Phase 10: チャット
 
 #### 10-1. チャット画面初期表示（`/chat/[matchId]`）
-- [ ] `getMatchAction` と `getMessagesAction` を実装し、ヘッダー（相手の名前・学歴）とメッセージ履歴を表示する
+- [x] `getMatchAction` と `getMessagesAction` を実装し、ヘッダー（相手の名前・学歴）とメッセージ履歴を表示する
 - **完了条件**: チャット画面を開くとメッセージ履歴が時系列で表示される。`ChatHeader` に相手の名前と大学名が表示される
 
 #### 10-2. useMessages フック（Realtime 購読）
-- [ ] Supabase Realtime で `messages` テーブルの INSERT を購読し、新着メッセージを state にマージする `useMessages` フックを実装する。アンマウント時に `channel.unsubscribe()` を呼ぶ
+- [x] Supabase Realtime で `messages` テーブルの INSERT を購読し、新着メッセージを state にマージする `useMessages` フックを実装する。アンマウント時に `channel.unsubscribe()` を呼ぶ
 - **完了条件**: 別タブで送信したメッセージがリロードなしで即座に表示される
 
 #### 10-3. メッセージ送信フォーム
-- [ ] テキスト入力 + 送信ボタンの `MessageInput` を実装し、`sendMessageAction` を呼び出す。送信後に入力欄をクリアし、最下部にスクロールする
+- [x] テキスト入力 + 送信ボタンの `MessageInput` を実装し、`sendMessageAction` を呼び出す。送信後に入力欄をクリアし、最下部にスクロールする
 - **完了条件**: テキストを入力して送信すると即座に吹き出しとして表示される。1000 文字超の送信はエラーになる
 
 #### 10-4. MessageBubble（退会済みユーザー対応）
-- [ ] `sender_id === null` の場合に「退会済みユーザー」とラベル表示する `MessageBubble` を実装する
+- [x] `sender_id === null` の場合に「退会済みユーザー」とラベル表示する `MessageBubble` を実装する
 - **完了条件**: `sender_id` が null のメッセージが「退会済みユーザー」として表示される
 
 #### 10-5. ChatHeader（退会済みユーザー対応）
-- [ ] `partner.isDeleted === true` の場合に相手名を「退会済みユーザー」と表示する `ChatHeader` を実装する
+- [x] `partner.isDeleted === true` の場合に相手名を「退会済みユーザー」と表示する `ChatHeader` を実装する
 - **完了条件**: 退会済みの相手とのチャット画面でヘッダーが「退会済みユーザー」と表示される
 
 ---
