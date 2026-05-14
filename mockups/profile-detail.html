@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プロフィール詳細 — 学歴デート</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            serif: ['"Noto Serif JP"', 'serif'],
+          },
+          colors: {
+            gk: {
+              base: '#0A0A0A', surface: '#141414', elevated: '#1E1E1E',
+              hover: '#1A1A1A', text: '#F0F0F0', sub: '#888888',
+              muted: '#555555', border: '#2A2A2A',
+              gold: '#C9A84C', 'gold-light': '#E8C87A', 'gold-dark': '#9A7A2E',
+              success: '#4CAF7A', warning: '#E0A040', error: '#E05252',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    .mock-nav a { color: #555; font-size: 11px; text-decoration: none; }
+    .mock-nav a:hover { color: #C9A84C; }
+  </style>
+</head>
+<body class="bg-gk-base text-gk-text font-sans">
+
+  <div class="mock-nav fixed top-0 left-0 right-0 bg-black/80 backdrop-blur px-3 py-1 flex flex-wrap gap-x-3 gap-y-1 z-50 border-b border-gk-border">
+    <a href="landing.html">landing</a><a href="login.html">login</a><a href="register.html">register</a>
+    <a href="onboarding.html">onboarding</a><a href="discover.html">discover</a>
+    <span style="color:#C9A84C;font-size:11px">▶ profile-detail</span>
+    <a href="likes.html">likes</a><a href="matches.html">matches</a>
+    <a href="chat.html">chat</a><a href="my-profile.html">my-profile</a>
+  </div>
+
+  <!-- ===== 正常状態（未いいね）===== -->
+  <p class="text-gk-muted text-[11px] px-4 pt-10 mb-1">↓ 正常状態（未いいね）</p>
+  <div class="flex justify-center">
+  <div class="w-full max-w-[480px] relative">
+
+    <!-- back button -->
+    <button class="absolute top-3 left-3 z-30 w-10 h-10 rounded-full flex items-center justify-center"
+      style="background:rgba(10,10,10,0.6); backdrop-filter:blur(4px)">
+      <svg class="w-5 h-5 text-gk-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+
+    <!-- hero photo with gradient overlay -->
+    <div class="relative aspect-[4/5] w-full"
+      style="background: linear-gradient(135deg, #1a1040 0%, #0d2040 100%);">
+      <!-- gradient overlay -->
+      <div class="absolute inset-x-0 bottom-0 h-2/5"
+        style="background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.6) 50%, transparent 100%);">
+      </div>
+      <!-- name / age on photo -->
+      <div class="absolute bottom-4 left-4">
+        <p class="text-white text-[22px] font-medium leading-tight">田中 優花</p>
+        <p class="text-white/80 text-[15px]">24歳</p>
+      </div>
+      <!-- large initial -->
+      <div class="flex items-center justify-center h-full">
+        <span class="text-[80px] font-serif text-white/20">田</span>
+      </div>
+    </div>
+
+    <!-- content area -->
+    <div class="px-4 pb-40 pt-5">
+
+      <!-- education section (gold left border) -->
+      <div class="pl-3 border-l-2 border-gk-gold mb-5">
+        <p class="text-gk-muted text-[12px] mb-1 uppercase tracking-widest">Education</p>
+        <p class="text-gk-gold text-[16px] font-medium">東京大学</p>
+        <p class="text-gk-gold text-[14px]">文学部 <span class="text-gk-sub">（2024年卒）</span></p>
+      </div>
+
+      <!-- bio -->
+      <div class="mb-5">
+        <p class="text-gk-muted text-[12px] mb-2 uppercase tracking-widest">About</p>
+        <p class="text-gk-text text-[15px] leading-[1.7]">
+          読書と映画鑑賞が好きです。週末は友人とカフェ巡りをしています。ゆくゆくは一緒に旅行できる仲になれれば嬉しいです。穏やかで、お互いを尊重できる関係を大切にしたいと思っています。
+        </p>
+      </div>
+
+      <!-- basic info -->
+      <div class="bg-gk-surface rounded-xl p-4 border border-gk-border">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <p class="text-gk-muted text-[12px]">年齢</p>
+            <p class="text-gk-text text-[15px] mt-0.5">24歳</p>
+          </div>
+          <div>
+            <p class="text-gk-muted text-[12px]">性別</p>
+            <p class="text-gk-text text-[15px] mt-0.5">女性</p>
+          </div>
+          <div>
+            <p class="text-gk-muted text-[12px]">大学</p>
+            <p class="text-gk-gold text-[15px] mt-0.5">東京大学</p>
+          </div>
+          <div>
+            <p class="text-gk-muted text-[12px]">学部</p>
+            <p class="text-gk-gold text-[15px] mt-0.5">文学部</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- fixed like button + bottom nav -->
+    <div class="fixed bottom-0 left-0 right-0 z-40">
+      <div class="max-w-[480px] mx-auto">
+        <!-- like button area -->
+        <div class="px-4 py-3 bg-gk-base border-t border-gk-border">
+          <button class="w-full h-[52px] rounded-lg text-gk-base font-medium text-[15px] flex items-center justify-center gap-2"
+            style="background: linear-gradient(135deg, #9A7A2E, #C9A84C, #E8C87A);">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            いいね
+          </button>
+        </div>
+        <!-- bottom nav -->
+        <nav class="bg-gk-base border-t border-gk-border">
+          <div class="flex items-center justify-around h-14">
+            <a href="discover.html" class="flex flex-col items-center gap-0.5 text-gk-gold">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+              </svg>
+              <span class="text-[11px]">探す</span>
+            </a>
+            <a href="likes.html" class="flex flex-col items-center gap-0.5 text-gk-muted">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+              <span class="text-[11px]">いいね</span>
+            </a>
+            <a href="matches.html" class="flex flex-col items-center gap-0.5 text-gk-muted">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+              </svg>
+              <span class="text-[11px]">マッチング</span>
+            </a>
+            <a href="my-profile.html" class="flex flex-col items-center gap-0.5 text-gk-muted">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              <span class="text-[11px]">プロフィール</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ===== いいね済み状態 ===== -->
+  <div class="mt-6 border-t border-gk-border/40 pt-4 px-4">
+    <p class="text-gk-muted text-[11px] mb-3">↓ いいね済み状態（ボタン部分）</p>
+    <div class="max-w-[480px] px-4 py-3 bg-gk-surface border border-gk-border rounded-xl">
+      <button class="w-full h-[52px] rounded-lg border text-[15px] font-medium flex items-center justify-center gap-2 opacity-60 cursor-not-allowed"
+        style="border-color:#C9A84C; color:#C9A84C;">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+        いいね済み
+      </button>
+    </div>
+  </div>
+
+  <!-- ===== OV-02: マッチングバナー ===== -->
+  <div class="mt-6 border-t border-gk-border/40 pt-4 px-4 pb-12">
+    <p class="text-gk-muted text-[11px] mb-3">↓ OV-02 マッチングバナー（オーバーレイ）</p>
+    <div class="relative max-w-[480px] rounded-2xl overflow-hidden border border-gk-border" style="background:#141414">
+      <!-- gold top line -->
+      <div class="h-[3px] w-full" style="background: linear-gradient(90deg, #9A7A2E, #C9A84C, #E8C87A);"></div>
+      <div class="p-6 text-center">
+        <p class="font-serif text-[22px] text-gk-gold tracking-[0.04em] mb-4">マッチング成立！</p>
+        <!-- avatars -->
+        <div class="flex items-center justify-center gap-4 mb-4">
+          <div class="w-16 h-16 rounded-full bg-gk-elevated border-2 flex items-center justify-center text-[24px] font-serif"
+            style="border-color:#C9A84C">鈴</div>
+          <div class="text-gk-gold text-[24px]">♡</div>
+          <div class="w-16 h-16 rounded-full flex items-center justify-center text-[24px] font-serif border-2"
+            style="background: linear-gradient(135deg, #1a1040, #0d2040); border-color:#C9A84C">田</div>
+        </div>
+        <p class="text-gk-text text-[15px] mb-1">田中 優花さんとマッチングしました</p>
+        <p class="text-gk-gold text-[13px] mb-6">東京大学 文学部</p>
+        <a href="chat.html" class="block w-full h-[52px] rounded-lg text-gk-base font-medium text-[15px] flex items-center justify-center mb-3"
+          style="background: linear-gradient(135deg, #9A7A2E, #C9A84C, #E8C87A);">
+          メッセージを送る
+        </a>
+        <button class="text-gk-muted text-[14px] hover:text-gk-sub">あとで</button>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ログイン — 学歴デート</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            serif: ['"Noto Serif JP"', 'serif'],
+          },
+          colors: {
+            gk: {
+              base: '#0A0A0A', surface: '#141414', elevated: '#1E1E1E',
+              hover: '#1A1A1A', text: '#F0F0F0', sub: '#888888',
+              muted: '#555555', border: '#2A2A2A',
+              gold: '#C9A84C', 'gold-light': '#E8C87A', 'gold-dark': '#9A7A2E',
+              success: '#4CAF7A', warning: '#E0A040', error: '#E05252',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    .mock-nav a { color: #555; font-size: 11px; text-decoration: none; }
+    .mock-nav a:hover { color: #C9A84C; }
+  </style>
+</head>
+<body class="bg-gk-base text-gk-text font-sans min-h-screen">
+
+  <div class="mock-nav fixed top-0 left-0 right-0 bg-black/80 backdrop-blur px-3 py-1 flex flex-wrap gap-x-3 gap-y-1 z-50 border-b border-gk-border">
+    <a href="landing.html">landing</a>
+    <span style="color:#C9A84C;font-size:11px">▶ login</span>
+    <a href="register.html">register</a><a href="onboarding.html">onboarding</a>
+    <a href="discover.html">discover</a><a href="profile-detail.html">profile-detail</a>
+    <a href="likes.html">likes</a><a href="matches.html">matches</a>
+    <a href="chat.html">chat</a><a href="my-profile.html">my-profile</a>
+  </div>
+
+  <div class="flex min-h-screen flex-col items-center justify-center px-4 pt-10 pb-12">
+    <div class="w-full max-w-[480px]">
+
+      <!-- logo -->
+      <div class="text-center mb-10">
+        <h1 class="font-serif font-light text-gk-gold text-[28px] tracking-[0.12em]">学歴デート</h1>
+      </div>
+
+      <!-- form card -->
+      <div class="bg-gk-surface rounded-2xl p-6 border border-gk-border">
+        <h2 class="font-serif text-[18px] text-gk-text mb-6 tracking-[0.04em]">ログイン</h2>
+
+        <!-- email -->
+        <div class="mb-4">
+          <label class="block text-gk-sub text-[13px] mb-2">メールアドレス</label>
+          <input
+            type="email"
+            value="tanaka@example.com"
+            class="w-full h-[52px] px-4 rounded-lg bg-gk-elevated border border-gk-border text-gk-text text-[15px] outline-none focus:border-gk-gold transition-colors"
+          />
+        </div>
+
+        <!-- password -->
+        <div class="mb-2">
+          <label class="block text-gk-sub text-[13px] mb-2">パスワード</label>
+          <input
+            type="password"
+            value="password123"
+            class="w-full h-[52px] px-4 rounded-lg bg-gk-elevated border border-gk-border text-gk-text text-[15px] outline-none focus:border-gk-gold transition-colors"
+          />
+        </div>
+
+        <!-- error state (示例 — 通常は非表示) -->
+        <div class="hidden mb-4 px-3 py-2 rounded-lg bg-gk-error/10 border border-gk-error/30">
+          <p class="text-gk-error text-[13px]">メールアドレスまたはパスワードが正しくありません</p>
+        </div>
+
+        <!-- submit -->
+        <button
+          class="w-full h-[52px] rounded-lg text-gk-base font-medium text-[15px] mt-6 transition-opacity hover:opacity-90"
+          style="background: linear-gradient(135deg, #9A7A2E, #C9A84C, #E8C87A);"
+        >
+          ログイン
+        </button>
+      </div>
+
+      <!-- register link -->
+      <p class="text-center mt-6 text-gk-sub text-[14px]">
+        アカウントをお持ちでない方は
+        <a href="register.html" class="text-gk-gold hover:text-gk-gold-light transition-colors ml-1">新規登録</a>
+      </p>
+
+      <!-- error state variant: shown -->
+      <div class="mt-10 border-t border-gk-border pt-6">
+        <p class="text-gk-muted text-[11px] mb-3">↓ エラー状態のバリエーション</p>
+        <div class="bg-gk-surface rounded-2xl p-6 border border-gk-border">
+          <h2 class="font-serif text-[18px] text-gk-text mb-6 tracking-[0.04em]">ログイン</h2>
+          <div class="mb-4">
+            <label class="block text-gk-sub text-[13px] mb-2">メールアドレス</label>
+            <input type="email" value="wrong@example.com"
+              class="w-full h-[52px] px-4 rounded-lg bg-gk-elevated border border-gk-border text-gk-text text-[15px] outline-none" />
+          </div>
+          <div class="mb-4">
+            <label class="block text-gk-sub text-[13px] mb-2">パスワード</label>
+            <input type="password" value="wrongpass"
+              class="w-full h-[52px] px-4 rounded-lg bg-gk-elevated border border-gk-error text-gk-text text-[15px] outline-none" />
+          </div>
+          <div class="mb-4 px-3 py-2 rounded-lg border" style="background:rgba(224,82,82,0.08); border-color:rgba(224,82,82,0.3)">
+            <p class="text-[13px]" style="color:#E05252">メールアドレスまたはパスワードが正しくありません</p>
+          </div>
+          <button class="w-full h-[52px] rounded-lg text-[15px] font-medium opacity-50" style="background: linear-gradient(135deg, #9A7A2E, #C9A84C, #E8C87A); color:#0A0A0A">
+            ログイン
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

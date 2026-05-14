@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>マイプロフィール — 学歴デート</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            serif: ['"Noto Serif JP"', 'serif'],
+          },
+          colors: {
+            gk: {
+              base: '#0A0A0A', surface: '#141414', elevated: '#1E1E1E',
+              hover: '#1A1A1A', text: '#F0F0F0', sub: '#888888',
+              muted: '#555555', border: '#2A2A2A',
+              gold: '#C9A84C', 'gold-light': '#E8C87A', 'gold-dark': '#9A7A2E',
+              success: '#4CAF7A', warning: '#E0A040', error: '#E05252',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    .mock-nav a { color: #555; font-size: 11px; text-decoration: none; }
+    .mock-nav a:hover { color: #C9A84C; }
+  </style>
+</head>
+<body class="bg-gk-base text-gk-text font-sans">
+
+  <div class="mock-nav fixed top-0 left-0 right-0 bg-black/80 backdrop-blur px-3 py-1 flex flex-wrap gap-x-3 gap-y-1 z-50 border-b border-gk-border">
+    <a href="landing.html">landing</a><a href="login.html">login</a><a href="register.html">register</a>
+    <a href="onboarding.html">onboarding</a><a href="discover.html">discover</a>
+    <a href="profile-detail.html">profile-detail</a><a href="likes.html">likes</a>
+    <a href="matches.html">matches</a><a href="chat.html">chat</a>
+    <span style="color:#C9A84C;font-size:11px">▶ my-profile</span>
+  </div>
+
+  <div class="flex justify-center">
+  <div class="w-full max-w-[480px] min-h-screen flex flex-col">
+
+    <!-- header -->
+    <header class="fixed top-7 left-0 right-0 bg-gk-base border-b border-gk-border z-40">
+      <div class="max-w-[480px] mx-auto flex items-center justify-between px-4 h-14">
+        <h2 class="font-serif text-[20px] tracking-[0.04em]">プロフィール</h2>
+      </div>
+    </header>
+
+    <main class="flex-1 px-4 pt-[89px] pb-32">
+
+      <!-- profile preview -->
+      <div class="flex flex-col items-center py-6 border-b border-gk-border mb-6">
+        <!-- circular avatar (tappable) -->
+        <div class="relative mb-4">
+          <div class="w-20 h-20 rounded-full flex items-center justify-center text-[32px] font-serif border-2 border-gk-gold"
+            style="background: linear-gradient(135deg, #1E1E3F, #0E2040);">鈴</div>
+          <!-- edit photo icon -->
+          <button class="absolute bottom-0 right-0 w-7 h-7 rounded-full border-2 border-gk-base flex items-center justify-center"
+            style="background:#C9A84C;">
+            <svg class="w-3.5 h-3.5 text-gk-base" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </button>
+        </div>
+        <p class="text-gk-text text-[18px] font-medium">鈴木 翔太 <span class="text-gk-sub text-[14px] font-normal">28歳</span></p>
+        <p class="text-gk-gold text-[14px] mt-1">◆ 慶應義塾大学 経済学部</p>
+      </div>
+
+      <!-- edit form -->
+      <div class="space-y-5">
+
+        <!-- section: basic -->
+        <div>
+          <p class="text-gk-muted text-[12px] uppercase tracking-widest mb-3">基本情報</p>
+          <div class="bg-gk-surface rounded-xl border border-gk-border overflow-hidden">
+            <div class="px-4 py-3 border-b border-gk-border">
+              <label class="block text-gk-muted text-[12px] mb-1">名前</label>
+              <input type="text" value="鈴木 翔太"
+                class="w-full bg-transparent text-gk-text text-[15px] outline-none focus:text-gk-gold" />
+            </div>
+            <div class="px-4 py-3 border-b border-gk-border">
+              <label class="block text-gk-muted text-[12px] mb-1">生年月日</label>
+              <input type="date" value="1997-08-22"
+                class="w-full bg-transparent text-gk-text text-[15px] outline-none" />
+            </div>
+            <div class="px-4 py-3">
+              <label class="block text-gk-muted text-[12px] mb-1">自己紹介</label>
+              <textarea rows="3"
+                class="w-full bg-transparent text-gk-text text-[15px] leading-relaxed outline-none resize-none placeholder:text-gk-muted"
+                >経済学部卒でIT企業勤務です。週末はテニスとカフェ巡りを楽しんでいます。穏やかで誠実な関係を築きたいと思っています。</textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- section: education -->
+        <div>
+          <p class="text-gk-muted text-[12px] uppercase tracking-widest mb-3">学歴</p>
+          <div class="bg-gk-surface rounded-xl border border-gk-border overflow-hidden">
+            <div class="px-4 py-3 border-b border-gk-border">
+              <label class="block text-gk-muted text-[12px] mb-1">大学名</label>
+              <input type="text" value="慶應義塾大学"
+                class="w-full bg-transparent text-gk-gold text-[15px] outline-none" />
+            </div>
+            <div class="px-4 py-3 border-b border-gk-border">
+              <label class="block text-gk-muted text-[12px] mb-1">学部名</label>
+              <input type="text" value="経済学部"
+                class="w-full bg-transparent text-gk-gold text-[15px] outline-none" />
+            </div>
+            <div class="px-4 py-3">
+              <label class="block text-gk-muted text-[12px] mb-1">卒業年度</label>
+              <input type="number" value="2022"
+                class="w-full bg-transparent text-gk-gold text-[15px] outline-none" />
+            </div>
+          </div>
+        </div>
+
+        <!-- save button -->
+        <button class="w-full h-[52px] rounded-lg text-gk-base font-medium text-[15px]"
+          style="background: linear-gradient(135deg, #9A7A2E, #C9A84C, #E8C87A);">
+          保存する
+        </button>
+
+        <!-- logout -->
+        <button class="w-full h-[48px] rounded-lg border border-gk-border text-gk-sub text-[15px] hover:border-gk-gold hover:text-gk-gold transition-colors">
+          ログアウト
+        </button>
+
+        <!-- withdraw -->
+        <div class="text-center pt-2 pb-4">
+          <button class="text-gk-muted text-[14px] hover:text-gk-sub transition-colors">
+            退会する
+          </button>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-gk-base border-t border-gk-border z-40">
+      <div class="max-w-[480px] mx-auto flex items-center justify-around h-16">
+        <a href="discover.html" class="flex flex-col items-center gap-1 text-gk-muted hover:text-gk-sub">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <span class="text-[12px]">探す</span>
+        </a>
+        <a href="likes.html" class="flex flex-col items-center gap-1 text-gk-muted hover:text-gk-sub">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span class="text-[12px]">いいね</span>
+        </a>
+        <a href="matches.html" class="flex flex-col items-center gap-1 text-gk-muted hover:text-gk-sub">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          <span class="text-[12px]">マッチング</span>
+        </a>
+        <a href="my-profile.html" class="flex flex-col items-center gap-1 text-gk-gold">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+          </svg>
+          <span class="text-[12px]">プロフィール</span>
+        </a>
+      </div>
+    </nav>
+
+  </div>
+  </div>
+
+  <!-- ===== 退会確認ダイアログ ===== -->
+  <div class="mt-10 border-t border-gk-border/40 pt-4 px-4 pb-12">
+    <p class="text-gk-muted text-[11px] mb-3">↓ 退会確認ダイアログ</p>
+    <div class="max-w-[480px]">
+      <!-- overlay backdrop -->
+      <div class="rounded-2xl overflow-hidden border border-gk-border" style="background:rgba(10,10,10,0.92)">
+        <div class="p-6 text-center">
+          <div class="w-12 h-12 rounded-full bg-gk-elevated flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6" style="color:#E05252" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+          </div>
+          <h3 class="font-serif text-[18px] mb-2">退会しますか？</h3>
+          <p class="text-gk-sub text-[14px] leading-relaxed mb-6">
+            アカウントを削除します。マッチング済みのチャット履歴は相手の画面に残ります。この操作は元に戻せません。
+          </p>
+          <div class="flex flex-col gap-3">
+            <button class="w-full h-[52px] rounded-lg border text-[15px] font-medium"
+              style="border-color:#E05252; color:#E05252; background:rgba(224,82,82,0.08)">
+              退会する
+            </button>
+            <button class="w-full h-[52px] rounded-lg border border-gk-border text-gk-sub text-[15px]">
+              キャンセル
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 保存成功トースト ===== -->
+  <div class="mt-6 border-t border-gk-border/40 pt-4 px-4 pb-8">
+    <p class="text-gk-muted text-[11px] mb-3">↓ 保存成功トースト通知</p>
+    <div class="max-w-[480px] flex items-center gap-3 px-4 py-3 rounded-xl border"
+      style="background:rgba(76,175,122,0.1); border-color:rgba(76,175,122,0.3)">
+      <svg class="w-5 h-5 flex-shrink-0" style="color:#4CAF7A" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+      </svg>
+      <p class="text-[14px]" style="color:#4CAF7A">プロフィールを更新しました</p>
+    </div>
+  </div>
+
+</body>
+</html>

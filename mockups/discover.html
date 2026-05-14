@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>探索 — 学歴デート</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            serif: ['"Noto Serif JP"', 'serif'],
+          },
+          colors: {
+            gk: {
+              base: '#0A0A0A', surface: '#141414', elevated: '#1E1E1E',
+              hover: '#1A1A1A', text: '#F0F0F0', sub: '#888888',
+              muted: '#555555', border: '#2A2A2A',
+              gold: '#C9A84C', 'gold-light': '#E8C87A', 'gold-dark': '#9A7A2E',
+              success: '#4CAF7A', warning: '#E0A040', error: '#E05252',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    .mock-nav a { color: #555; font-size: 11px; text-decoration: none; }
+    .mock-nav a:hover { color: #C9A84C; }
+  </style>
+</head>
+<body class="bg-gk-base text-gk-text font-sans">
+
+  <div class="mock-nav fixed top-0 left-0 right-0 bg-black/80 backdrop-blur px-3 py-1 flex flex-wrap gap-x-3 gap-y-1 z-50 border-b border-gk-border" style="top:0">
+    <a href="landing.html">landing</a><a href="login.html">login</a><a href="register.html">register</a>
+    <a href="onboarding.html">onboarding</a>
+    <span style="color:#C9A84C;font-size:11px">▶ discover</span>
+    <a href="profile-detail.html">profile-detail</a><a href="likes.html">likes</a>
+    <a href="matches.html">matches</a><a href="chat.html">chat</a>
+    <a href="my-profile.html">my-profile</a>
+  </div>
+
+  <div class="flex justify-center">
+  <div class="w-full max-w-[480px] min-h-screen flex flex-col">
+
+    <!-- top app header -->
+    <header class="fixed top-7 left-0 right-0 bg-gk-base border-b border-gk-border z-40">
+      <div class="max-w-[480px] mx-auto flex items-center justify-between px-4 h-14">
+        <h1 class="font-serif font-light text-gk-gold text-[20px] tracking-[0.12em]">学歴デート</h1>
+        <!-- filter icon with badge (filter active) -->
+        <button class="relative p-2">
+          <svg class="w-6 h-6 text-gk-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"/>
+          </svg>
+          <!-- filter active indicator -->
+          <span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-gk-gold"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- filter chip (active filter shown) -->
+    <div class="fixed top-[89px] left-0 right-0 z-30 bg-gk-base px-4 py-2">
+      <div class="max-w-[480px] mx-auto flex gap-2">
+        <span class="px-3 py-1 rounded-full text-[12px] border flex items-center gap-1"
+          style="border-color: rgba(201,168,76,0.4); color:#C9A84C; background:rgba(201,168,76,0.08)">
+          25〜32歳
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </span>
+        <span class="px-3 py-1 rounded-full text-[12px] border flex items-center gap-1"
+          style="border-color: rgba(201,168,76,0.4); color:#C9A84C; background:rgba(201,168,76,0.08)">
+          早稲田
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+
+    <!-- card grid -->
+    <main class="flex-1 px-4 pb-24 pt-[128px]">
+      <div class="grid grid-cols-2 gap-2">
+
+        <!-- card 1 -->
+        <a href="profile-detail.html" class="bg-gk-surface rounded-xl overflow-hidden block hover:bg-gk-hover transition-colors">
+          <div class="aspect-[4/5] flex items-center justify-center text-[40px] font-serif"
+            style="background: linear-gradient(135deg, #1a1040 0%, #0d2040 100%);">田</div>
+          <div class="p-2">
+            <p class="text-gk-text text-[15px] font-medium">田中 優花 <span class="text-gk-sub font-normal text-[13px]">24歳</span></p>
+            <p class="text-gk-gold text-[13px] mt-0.5">◆ 東京大学 文学部</p>
+            <p class="text-gk-sub text-[12px] mt-1 leading-snug line-clamp-2">読書と映画が好きです。穏やかな時間を大切に…</p>
+          </div>
+        </a>
+
+        <!-- card 2 -->
+        <a href="profile-detail.html" class="bg-gk-surface rounded-xl overflow-hidden block hover:bg-gk-hover transition-colors">
+          <div class="aspect-[4/5] flex items-center justify-center text-[40px] font-serif"
+            style="background: linear-gradient(135deg, #2d0920 0%, #3d1a2e 100%);">山</div>
+          <div class="p-2">
+            <p class="text-gk-text text-[15px] font-medium">山本 美桜 <span class="text-gk-sub font-normal text-[13px]">26歳</span></p>
+            <p class="text-gk-gold text-[13px] mt-0.5">◆ 早稲田大学 法学部</p>
+            <p class="text-gk-sub text-[12px] mt-1 leading-snug line-clamp-2">旅行が大好きで、休みのたびに国内外を…</p>
+          </div>
+        </a>
+
+        <!-- card 3 (no photo) -->
+        <a href="profile-detail.html" class="bg-gk-surface rounded-xl overflow-hidden block hover:bg-gk-hover transition-colors">
+          <div class="aspect-[4/5] bg-gk-elevated flex items-center justify-center">
+            <span class="text-gk-muted text-[32px] font-serif">佐</span>
+          </div>
+          <div class="p-2">
+            <p class="text-gk-text text-[15px] font-medium">佐藤 咲 <span class="text-gk-sub font-normal text-[13px]">23歳</span></p>
+            <p class="text-gk-gold text-[13px] mt-0.5">◆ 慶應義塾大学 経済学部</p>
+            <p class="text-gk-sub text-[12px] mt-1 leading-snug line-clamp-2">カフェ巡りと料理が趣味です。明るく前向き…</p>
+          </div>
+        </a>
+
+        <!-- card 4 -->
+        <a href="profile-detail.html" class="bg-gk-surface rounded-xl overflow-hidden block hover:bg-gk-hover transition-colors">
+          <div class="aspect-[4/5] flex items-center justify-center text-[40px] font-serif"
+            style="background: linear-gradient(135deg, #0d3020 0%, #0e4030 100%);">中</div>
+          <div class="p-2">
+            <p class="text-gk-text text-[15px] font-medium">中村 凛 <span class="text-gk-sub font-normal text-[13px]">27歳</span></p>
+            <p class="text-gk-gold text-[13px] mt-0.5">◆ 京都大学 医学部</p>
+            <p class="text-gk-sub text-[12px] mt-1 leading-snug line-clamp-2">好奇心旺盛で新しいことへの挑戦が好き…</p>
+          </div>
+        </a>
+
+        <!-- card 5 -->
+        <a href="profile-detail.html" class="bg-gk-surface rounded-xl overflow-hidden block hover:bg-gk-hover transition-colors">
+          <div class="aspect-[4/5] flex items-center justify-center text-[40px] font-serif"
+            style="background: linear-gradient(135deg, #1a2340 0%, #253050 100%);">林</div>
+          <div class="p-2">
+            <p class="text-gk-text text-[15px] font-medium">林 菜摘 <span class="text-gk-sub font-normal text-[13px]">25歳</span></p>
+            <p class="text-gk-gold text-[13px] mt-0.5">◆ 一橋大学 商学部</p>
+            <p class="text-gk-sub text-[12px] mt-1 leading-snug line-clamp-2">音楽と写真が好きです。週末は展覧会に…</p>
+          </div>
+        </a>
+
+        <!-- card 6 -->
+        <a href="profile-detail.html" class="bg-gk-surface rounded-xl overflow-hidden block hover:bg-gk-hover transition-colors">
+          <div class="aspect-[4/5] flex items-center justify-center text-[40px] font-serif"
+            style="background: linear-gradient(135deg, #2a1a00 0%, #3d2500 100%);">小</div>
+          <div class="p-2">
+            <p class="text-gk-text text-[15px] font-medium">小林 杏 <span class="text-gk-sub font-normal text-[13px]">28歳</span></p>
+            <p class="text-gk-gold text-[13px] mt-0.5">◆ 大阪大学 工学部</p>
+            <p class="text-gk-sub text-[12px] mt-1 leading-snug line-clamp-2">テニスとランニングが趣味。健康的な生活を…</p>
+          </div>
+        </a>
+
+      </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-gk-base border-t border-gk-border z-40">
+      <div class="max-w-[480px] mx-auto flex items-center justify-around h-16">
+        <a href="discover.html" class="flex flex-col items-center gap-1 text-gk-gold">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+          </svg>
+          <span class="text-[12px]">探す</span>
+        </a>
+        <a href="likes.html" class="flex flex-col items-center gap-1 text-gk-muted hover:text-gk-sub">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+          </svg>
+          <span class="text-[12px]">いいね</span>
+        </a>
+        <a href="matches.html" class="flex flex-col items-center gap-1 text-gk-muted hover:text-gk-sub">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+          </svg>
+          <span class="text-[12px]">マッチング</span>
+        </a>
+        <a href="my-profile.html" class="flex flex-col items-center gap-1 text-gk-muted hover:text-gk-sub">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+          </svg>
+          <span class="text-[12px]">プロフィール</span>
+        </a>
+      </div>
+    </nav>
+
+  </div>
+  </div>
+
+  <!-- ===== OV-01: フィルターパネル（ボトムシート）===== -->
+  <div class="mt-12 border-t border-gk-border/40">
+    <p class="text-gk-muted text-[11px] px-4 pt-4 mb-2">↓ OV-01 フィルターパネル（ボトムシート）</p>
+    <div class="flex justify-center">
+      <div class="w-full max-w-[480px] bg-gk-elevated rounded-t-2xl border border-gk-border border-b-0 p-5">
+        <!-- drag handle -->
+        <div class="w-10 h-1 bg-gk-border rounded-full mx-auto mb-5"></div>
+        <h3 class="font-serif text-[18px] text-gk-text mb-5 tracking-[0.04em]">絞り込み</h3>
+
+        <div class="space-y-5">
+          <div>
+            <label class="block text-gk-sub text-[13px] mb-3">年齢</label>
+            <div class="flex items-center gap-3">
+              <input type="number" value="25" class="flex-1 h-[52px] px-4 rounded-lg bg-gk-surface border border-gk-border text-gk-text text-[15px] outline-none focus:border-gk-gold" />
+              <span class="text-gk-muted text-[14px]">〜</span>
+              <input type="number" value="32" class="flex-1 h-[52px] px-4 rounded-lg bg-gk-surface border border-gk-border text-gk-text text-[15px] outline-none focus:border-gk-gold" />
+              <span class="text-gk-muted text-[14px]">歳</span>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-gk-sub text-[13px] mb-2">大学名（キーワード）</label>
+            <input type="text" value="早稲田" class="w-full h-[52px] px-4 rounded-lg bg-gk-surface border border-gk-border text-gk-text text-[15px] outline-none focus:border-gk-gold" />
+          </div>
+        </div>
+
+        <div class="flex gap-3 mt-6">
+          <button class="flex-1 h-[52px] rounded-lg border border-gk-border text-gk-sub text-[15px]">
+            リセット
+          </button>
+          <button class="flex-[2] h-[52px] rounded-lg text-gk-base font-medium text-[15px]"
+            style="background: linear-gradient(135deg, #9A7A2E, #C9A84C, #E8C87A);">
+            適用する
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

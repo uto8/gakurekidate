@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>チャット — 学歴デート</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            serif: ['"Noto Serif JP"', 'serif'],
+          },
+          colors: {
+            gk: {
+              base: '#0A0A0A', surface: '#141414', elevated: '#1E1E1E',
+              hover: '#1A1A1A', text: '#F0F0F0', sub: '#888888',
+              muted: '#555555', border: '#2A2A2A',
+              gold: '#C9A84C', 'gold-light': '#E8C87A', 'gold-dark': '#9A7A2E',
+              success: '#4CAF7A', warning: '#E0A040', error: '#E05252',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500&family=Noto+Serif+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    .mock-nav a { color: #555; font-size: 11px; text-decoration: none; }
+    .mock-nav a:hover { color: #C9A84C; }
+  </style>
+</head>
+<body class="bg-gk-base text-gk-text font-sans">
+
+  <div class="mock-nav fixed top-0 left-0 right-0 bg-black/80 backdrop-blur px-3 py-1 flex flex-wrap gap-x-3 gap-y-1 z-50 border-b border-gk-border">
+    <a href="landing.html">landing</a><a href="login.html">login</a><a href="register.html">register</a>
+    <a href="onboarding.html">onboarding</a><a href="discover.html">discover</a>
+    <a href="profile-detail.html">profile-detail</a><a href="likes.html">likes</a>
+    <a href="matches.html">matches</a>
+    <span style="color:#C9A84C;font-size:11px">▶ chat</span>
+    <a href="my-profile.html">my-profile</a>
+  </div>
+
+  <!-- ===== チャット画面（正常）===== -->
+  <div class="flex justify-center">
+  <div class="w-full max-w-[480px] min-h-screen flex flex-col relative">
+
+    <!-- fixed header -->
+    <header class="fixed top-7 left-0 right-0 bg-gk-base border-b border-gk-border z-40">
+      <div class="max-w-[480px] mx-auto flex items-center gap-3 px-4 h-14">
+        <a href="matches.html" class="p-1 -ml-1">
+          <svg class="w-5 h-5 text-gk-sub" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </a>
+        <div class="w-9 h-9 rounded-full flex-shrink-0 flex items-center justify-center text-[16px] font-serif"
+          style="background: linear-gradient(135deg, #1a1040, #0d2040);">田</div>
+        <div class="flex-1 min-w-0">
+          <p class="text-gk-text text-[15px] font-medium leading-tight">田中 優花</p>
+          <p class="text-gk-gold text-[12px] leading-tight">東京大学 文学部</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- message area -->
+    <main class="flex-1 px-4 pt-[89px] pb-[80px] flex flex-col gap-4">
+
+      <!-- date separator -->
+      <div class="flex items-center gap-3 my-2">
+        <div class="flex-1 h-px bg-gk-border"></div>
+        <span class="text-gk-muted text-[12px]">2026年5月14日</span>
+        <div class="flex-1 h-px bg-gk-border"></div>
+      </div>
+
+      <!-- partner message -->
+      <div class="flex items-end gap-2 max-w-[80%]">
+        <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-[12px] font-serif"
+          style="background: linear-gradient(135deg, #1a1040, #0d2040);">田</div>
+        <div>
+          <div class="bg-gk-elevated rounded-xl rounded-bl-sm px-4 py-2.5">
+            <p class="text-gk-text text-[15px] leading-relaxed">はじめまして！マッチングしてくださってありがとうございます😊</p>
+          </div>
+          <p class="text-gk-muted text-[12px] mt-1 ml-1">14:30</p>
+        </div>
+      </div>
+
+      <!-- own message -->
+      <div class="flex items-end gap-2 max-w-[80%] ml-auto flex-row-reverse">
+        <div>
+          <div class="px-4 py-2.5 rounded-xl rounded-br-sm" style="background:#C9A84C;">
+            <p class="text-gk-base text-[15px] leading-relaxed">こちらこそ、よろしくお願いします！プロフィール拝見しました</p>
+          </div>
+          <p class="text-gk-muted text-[12px] mt-1 mr-1 text-right">14:31</p>
+        </div>
+      </div>
+
+      <!-- partner message -->
+      <div class="flex items-end gap-2 max-w-[80%]">
+        <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-[12px] font-serif"
+          style="background: linear-gradient(135deg, #1a1040, #0d2040);">田</div>
+        <div>
+          <div class="bg-gk-elevated rounded-xl rounded-bl-sm px-4 py-2.5">
+            <p class="text-gk-text text-[15px] leading-relaxed">東大の文学部なんですね！何を専攻されていましたか？</p>
+          </div>
+          <p class="text-gk-muted text-[12px] mt-1 ml-1">14:32</p>
+        </div>
+      </div>
+
+      <!-- own message -->
+      <div class="flex items-end gap-2 max-w-[80%] ml-auto flex-row-reverse">
+        <div>
+          <div class="px-4 py-2.5 rounded-xl rounded-br-sm" style="background:#C9A84C;">
+            <p class="text-gk-base text-[15px] leading-relaxed">日本文学を専攻していました。卒論は近代文学がテーマでした</p>
+          </div>
+          <p class="text-gk-muted text-[12px] mt-1 mr-1 text-right">14:34</p>
+        </div>
+      </div>
+
+      <!-- partner message -->
+      <div class="flex items-end gap-2 max-w-[80%]">
+        <div class="w-7 h-7 rounded-full flex-shrink-0 flex items-center justify-center text-[12px] font-serif"
+          style="background: linear-gradient(135deg, #1a1040, #0d2040);">田</div>
+        <div>
+          <div class="bg-gk-elevated rounded-xl rounded-bl-sm px-4 py-2.5">
+            <p class="text-gk-text text-[15px] leading-relaxed">素晴らしいですね！私も読書が好きなので、共通点がありそうです☺️</p>
+          </div>
+          <p class="text-gk-muted text-[12px] mt-1 ml-1">14:35</p>
+        </div>
+      </div>
+
+      <!-- date separator -->
+      <div class="flex items-center gap-3 my-2">
+        <div class="flex-1 h-px bg-gk-border"></div>
+        <span class="text-gk-muted text-[12px]">今日</span>
+        <div class="flex-1 h-px bg-gk-border"></div>
+      </div>
+
+      <!-- own message (latest) -->
+      <div class="flex items-end gap-2 max-w-[80%] ml-auto flex-row-reverse">
+        <div>
+          <div class="px-4 py-2.5 rounded-xl rounded-br-sm" style="background:#C9A84C;">
+            <p class="text-gk-base text-[15px] leading-relaxed">週末はどんなことをされていますか？</p>
+          </div>
+          <p class="text-gk-muted text-[12px] mt-1 mr-1 text-right">09:15</p>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- fixed input area -->
+    <div class="fixed bottom-0 left-0 right-0 bg-gk-surface border-t border-gk-border z-40">
+      <div class="max-w-[480px] mx-auto flex items-end gap-2 px-4 py-3">
+        <textarea
+          rows="1"
+          placeholder="メッセージを入力..."
+          class="flex-1 px-4 py-3 rounded-xl bg-gk-elevated border border-gk-border text-gk-text text-[15px] leading-relaxed outline-none focus:border-gk-gold resize-none placeholder:text-gk-muted"
+          style="min-height:48px; max-height:120px;"
+        ></textarea>
+        <button class="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
+          style="background: linear-gradient(135deg, #9A7A2E, #C9A84C, #E8C87A);">
+          <svg class="w-5 h-5 text-gk-base" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+  <!-- ===== Realtime 切断状態 ===== -->
+  <div class="mt-10 border-t border-gk-border/40 pt-4 px-4">
+    <p class="text-gk-muted text-[11px] mb-3">↓ Realtime 切断バナー</p>
+    <div class="max-w-[480px]">
+      <div class="px-4 py-2.5 flex items-center gap-2" style="background:rgba(224,160,64,0.12); border-bottom: 1px solid rgba(224,160,64,0.2)">
+        <div class="w-2 h-2 rounded-full animate-pulse" style="background:#E0A040"></div>
+        <p class="text-[13px]" style="color:#E0A040">再接続中...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 退会済みユーザーのチャット ===== -->
+  <div class="mt-6 border-t border-gk-border/40 pt-4 px-4 pb-12">
+    <p class="text-gk-muted text-[11px] mb-3">↓ 相手が退会済みの状態</p>
+    <div class="max-w-[480px] bg-gk-surface rounded-xl border border-gk-border overflow-hidden">
+      <!-- deleted user header -->
+      <div class="flex items-center gap-3 px-4 py-3 border-b border-gk-border">
+        <div class="w-9 h-9 rounded-full bg-gk-elevated flex items-center justify-center text-[16px] font-serif text-gk-muted border border-gk-border">中</div>
+        <div>
+          <p class="text-gk-sub text-[14px]">中村 凛 <span class="ml-1 px-1.5 py-0.5 text-[10px] rounded bg-gk-elevated text-gk-muted border border-gk-border">退会済み</span></p>
+          <p class="text-gk-muted text-[12px]">京都大学 医学部</p>
+        </div>
+      </div>
+      <!-- deleted user message -->
+      <div class="p-4">
+        <div class="flex items-end gap-2 max-w-[80%] mb-4">
+          <div class="w-6 h-6 rounded-full flex-shrink-0 bg-gk-elevated flex items-center justify-center text-[11px] text-gk-muted">退</div>
+          <div>
+            <p class="text-gk-muted text-[11px] mb-1">退会済みユーザー</p>
+            <div class="px-3 py-2 rounded-xl rounded-bl-sm border border-gk-border" style="background:#1A1A1A">
+              <p class="text-gk-muted text-[14px]">また話しましょう！</p>
+            </div>
+            <p class="text-gk-muted text-[11px] mt-1">1週間前</p>
+          </div>
+        </div>
+        <!-- disabled input -->
+        <div class="px-3 py-2.5 rounded-xl border border-gk-border text-gk-muted text-[13px] text-center"
+          style="background:#111111">
+          退会済みのユーザーのため、メッセージを送れません
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
