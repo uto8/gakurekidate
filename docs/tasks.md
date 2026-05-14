@@ -1,6 +1,6 @@
 # 実装タスク一覧 — gakureki-date MVP
 
-最終更新: 2026-05-14
+最終更新: 2026-05-14（Phase 1 完了）
 
 凡例: `[ ]` 未着手 / `[x]` 完了
 
@@ -11,23 +11,23 @@
 ### Phase 1: セットアップ
 
 #### 1-1. Next.js プロジェクト初期化
-- [ ] `create-next-app` で App Router / TypeScript / Tailwind を選択して雛形を生成する
+- [x] `create-next-app` で App Router / TypeScript / Tailwind を選択して雛形を生成する
 - **完了条件**: `npm run dev` でトップページが表示される。`npm run build` がエラーなく通る
 
 #### 1-2. Supabase プロジェクト作成・環境変数設定
-- [ ] Supabase ダッシュボードでプロジェクトを作成し、`NEXT_PUBLIC_SUPABASE_URL` と `NEXT_PUBLIC_SUPABASE_ANON_KEY` を `.env.local` に記載する
+- [x] Supabase ダッシュボードでプロジェクトを作成し、`NEXT_PUBLIC_SUPABASE_URL` と `NEXT_PUBLIC_SUPABASE_ANON_KEY` を `.env.local` に記載する
 - **完了条件**: `.env.local` が存在し、`.gitignore` に含まれている
 
 #### 1-3. Supabase ローカル開発環境セットアップ
-- [ ] `supabase init` を実行し、`supabase start` でローカル DB が起動することを確認する
+- [x] `supabase init` を実行し、`supabase start` でローカル DB が起動することを確認する
 - **完了条件**: `supabase status` でローカルの URL と anon key が表示される
 
 #### 1-4. shadcn/ui 導入
-- [ ] `npx shadcn@latest init` を実行し、Button / Input / Card / Avatar コンポーネントを追加する
+- [x] `npx shadcn@latest init` を実行し、Button / Input / Card / Avatar コンポーネントを追加する
 - **完了条件**: `src/components/ui/` に各ファイルが生成されている
 
 #### 1-5. lint / typecheck コマンド設定
-- [ ] `package.json` の `scripts` に `"typecheck": "tsc --noEmit"` を追加し、ESLint 設定を確認する
+- [x] `package.json` の `scripts` に `"typecheck": "tsc --noEmit"` を追加し、ESLint 設定を確認する
 - **完了条件**: `npm run typecheck` と `npm run lint` がエラーなく通る
 
 ---
