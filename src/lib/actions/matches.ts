@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
-import { supabaseErrorToMessage } from "@/lib/utils";
+import { buildUnreadCountMap, supabaseErrorToMessage } from "@/lib/utils";
 import type { ActionResult, Match, Profile } from "@/types";
 
 // RLS で退会済みユーザーのプロフィールは取得不可なため、
@@ -79,12 +79,12 @@ export async function getMatchesAction(): Promise<ActionResult<Match[]>> {
     });
   }
 
-  // Step 4: 各 match の最新メッセージを一括取得
+  // Step 4: 各 match の最新メッセージ + 未読対象メッセージを一括取得
   const matchIds = matchRows.map((m) => m.id);
 
   const { data: messageRows, error: msgError } = await supabase
     .from("messages")
-    .select("match_id, content, created_at")
+    .select("match_id, content, created_at, sender_id")
     .in("match_id", matchIds)
     .order("created_at", { ascending: false });
 
@@ -99,7 +99,24 @@ export async function getMatchesAction(): Promise<ActionResult<Match[]>> {
     lastMessageMap.set(matchId, msg?.content ?? null);
   }
 
-  // Step 5: Match[] を組み立て
+  // Step 5: 未読件数を計算
+  const { data: receipts } = await supabase
+    .from("message_read_receipts")
+    .select("match_id, last_read_at")
+    .eq("user_id", user.id);
+
+  const lastReadMap = new Map(
+    receipts?.map((r) => [r.match_id, r.last_read_at]) ?? []
+  );
+
+  // messageRows は content も含む全カラム取得済みなので再利用する
+  const unreadCountMap = buildUnreadCountMap(
+    messageRows ?? [],
+    lastReadMap,
+    user.id
+  );
+
+  // Step 6: Match[] を組み立て
   const matches: Match[] = matchRows.map((row) => {
     const partnerId = row.user1_id === user.id ? row.user2_id : row.user1_id;
     const partner =
@@ -109,6 +126,7 @@ export async function getMatchesAction(): Promise<ActionResult<Match[]>> {
       partner,
       created_at: row.created_at,
       last_message: lastMessageMap.get(row.id) ?? null,
+      unread_count: unreadCountMap.get(row.id) ?? 0,
     };
   });
 

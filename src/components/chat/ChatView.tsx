@@ -44,6 +44,7 @@ export default function ChatView({
 }: Props) {
   const { messages, addOptimistic, rollbackOptimistic } = useMessages(
     matchId,
+    undefined, // F-008 で currentUserId を渡す
     initialMessages
   );
   const bottomRef = useRef<HTMLDivElement>(null);

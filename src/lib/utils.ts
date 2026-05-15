@@ -96,6 +96,33 @@ export function formatMessageDate(isoString: string): string {
   return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日`;
 }
 
+/**
+ * messages 配列と既読タイムスタンプ Map から match ごとの未読件数 Map を返す。
+ * - sender_id が null（退会済みユーザー）は対象外
+ * - sender_id === currentUserId（自分の送信）は対象外
+ * - created_at > last_read_at のメッセージのみカウント（同時刻は既読扱い）
+ * - last_read_at が Map にない（初回訪問）場合は全対象メッセージをカウント
+ */
+export function buildUnreadCountMap(
+  messages: Array<{
+    match_id: string;
+    sender_id: string | null;
+    created_at: string;
+  }>,
+  lastReadMap: Map<string, string>,
+  currentUserId: string
+): Map<string, number> {
+  const countMap = new Map<string, number>();
+  for (const msg of messages) {
+    if (!msg.sender_id || msg.sender_id === currentUserId) continue;
+    const lastRead = lastReadMap.get(msg.match_id);
+    if (!lastRead || msg.created_at > lastRead) {
+      countMap.set(msg.match_id, (countMap.get(msg.match_id) ?? 0) + 1);
+    }
+  }
+  return countMap;
+}
+
 export function supabaseErrorToMessage(error: unknown): string {
   if (error instanceof Error) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -210,6 +210,10 @@ create table public.messages (
   content    text        not null check (length(content) between 1 and 1000),
   created_at timestamptz not null default now()
 );
+
+-- 既読管理（未読バッジ機能）→ 詳細: docs/features/unread-badge/design.md
+-- message_read_receipts テーブル: (match_id, user_id) PK、last_read_at で既読時刻を管理
+-- マイグレーション: supabase/migrations/YYYYMMDD_message_read_receipts.sql で追加
 ```
 
 ### 4-2. ビュー
@@ -488,7 +492,8 @@ getSentLikeTargetIdsAction(): Promise<ActionResult<string[]>>
 #### マッチング（`lib/actions/matches.ts`）
 
 ```typescript
-// マッチング一覧（最新メッセージ付き・相手プロフィール JOIN 済み）
+// マッチング一覧（最新メッセージ + 未読件数付き・相手プロフィール JOIN 済み）
+// Match.unread_count を含む。→ 詳細: docs/features/unread-badge/design.md §2-3
 getMatchesAction(): Promise<ActionResult<Match[]>>
 
 // マッチング詳細（チャット画面初期データ）
@@ -503,6 +508,12 @@ getMessagesAction(matchId: string): Promise<ActionResult<Message[]>>
 
 // メッセージ送信
 sendMessageAction(matchId: string, content: string): Promise<ActionResult<Message>>
+
+// 既読マーク（未読バッジ機能）→ 詳細: docs/features/unread-badge/design.md §2-1
+markAsReadAction(matchId: string): Promise<ActionResult<null>>
+
+// 合計未読件数取得（未読バッジ機能）→ 詳細: docs/features/unread-badge/design.md §2-2
+getTotalUnreadCountAction(): Promise<ActionResult<number>>
 ```
 
 ### 5-4. 主要コンポーネント
@@ -569,14 +580,23 @@ type MessageBubbleProps = {
 #### `useMessages`
 
 ```typescript
-function useMessages(matchId: string, initialMessages: Message[]): {
+// currentUserId 引数を追加（未読バッジ機能）→ 詳細: docs/features/unread-badge/design.md §4-4
+function useMessages(matchId: string, currentUserId: string, initialMessages: Message[]): {
   messages: Message[]
-  send: (content: string) => Promise<void>
-  sending: boolean
+  addOptimistic: (content: string, senderId: string) => string
+  rollbackOptimistic: (tempId: string) => void
 }
 ```
 
-Supabase Realtime で `messages` テーブルの INSERT イベントを購読し、`messages` state にマージする。コンポーネントアンマウント時に `channel.unsubscribe()` を呼び出す。
+Supabase Realtime で `messages` テーブルの INSERT イベントを購読し、`messages` state にマージする。相手からのメッセージ受信時に `markAsReadAction(matchId)` を fire-and-forget で呼び出す。コンポーネントアンマウント時に `channel.unsubscribe()` を呼び出す。
+
+#### `useUnreadCount`（未読バッジ機能）→ 詳細: `docs/features/unread-badge/design.md §5`
+
+```typescript
+function useUnreadCount(userId: string, initialCount: number): number
+```
+
+`messages` テーブルの INSERT と `message_read_receipts` テーブルの変更を Realtime で購読し、合計未読件数をリアルタイムで管理する。`BottomNav` で使用する。
 
 ```typescript
 const channel = supabase
@@ -707,6 +727,6 @@ push →
 |---|---|---|
 | U-1 | `likes` と `matches` の整合性（`likes.is_matched boolean` 追加でマッチ済みいいねを区別） | マッチ済み表示が必要になった時点 |
 | U-2 | 通知の永続化（`notifications` テーブル追加） | プッシュ通知実装時 |
-| U-3 | メッセージ既読状態（`messages.is_read boolean`） | MVP 後フェーズ |
+| U-3 | メッセージ既読状態 | **実装済み（Phase 12）**: `messages.is_read` ではなく `message_read_receipts(match_id, user_id, last_read_at)` テーブルで管理。→ `docs/features/unread-badge/design.md` |
 | U-4 | `matches` の OR クエリ負荷（`match_members` 中間テーブルへの移行） | ユーザー数がボトルネックになった時点 |
 | U-5 | `educations.id` の冗長性（`user_id` を PK に変更） | 複数学歴対応が必要になった時点 |

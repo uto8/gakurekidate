@@ -4,7 +4,11 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { Message } from "@/types";
 
-export function useMessages(matchId: string, initialMessages: Message[]) {
+export function useMessages(
+  matchId: string,
+  currentUserId: string | undefined, // F-012 で string に変更。F-008 で既読マーク処理を追加する
+  initialMessages: Message[]
+) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const initialized = useRef(false);
 
