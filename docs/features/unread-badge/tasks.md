@@ -1,6 +1,6 @@
 # 未読バッジ機能 — 実装タスクリスト
 
-最終更新: 2026-05-16（F-001〜F-013 完了）  
+最終更新: 2026-05-16（F-001〜F-014 完了）  
 設計書: `docs/features/unread-badge/design.md`  
 影響調査: `docs/features/unread-badge/impact.md`
 
@@ -23,7 +23,7 @@
 | F-011 | `ChatView` に既読マーク追加 | UI | F-008 | 0.5h | ✅ 完了 |
 | F-012 | 型確定（optional → required 変更） | 型確定 | F-009, F-010, F-011 | 0.5h | ✅ 完了 |
 | F-013 | `markAsReadAction` / `getTotalUnreadCountAction` ユニットテスト | テスト | F-004, F-005 | 2h | ✅ 完了 |
-| F-014 | `MatchListItem` / `BottomNav` コンポーネントテスト | テスト | F-009, F-010 | 1.5h | 未着手 |
+| F-014 | `MatchListItem` / `BottomNav` コンポーネントテスト | テスト | F-009, F-010 | 1.5h | ✅ 完了 |
 | F-015 | 型チェック・ビルド確認・手動動作確認 | テスト | F-012 | 0.5h | 未着手 |
 
 ---
