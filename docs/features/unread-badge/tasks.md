@@ -1,6 +1,6 @@
 # 未読バッジ機能 — 実装タスクリスト
 
-最終更新: 2026-05-16（F-001〜F-007 完了）  
+最終更新: 2026-05-16（F-001〜F-008 完了）  
 設計書: `docs/features/unread-badge/design.md`  
 影響調査: `docs/features/unread-badge/impact.md`
 
@@ -17,7 +17,7 @@
 | F-005 | `getTotalUnreadCountAction` 実装 | バックエンド | F-001 | 1.5h | ✅ 完了 |
 | F-006 | `getMatchesAction` に `unread_count` を追加 | バックエンド | F-003, F-004, F-005 | 1h | ✅ 完了 |
 | F-007 | `useUnreadCount` フック新規作成 | フロントエンド基盤 | F-005 | 1.5h | ✅ 完了 |
-| F-008 | `useMessages` に `currentUserId` と既読マーク処理を追加 | フロントエンド基盤 | F-003, F-004 | 1h | 未着手 |
+| F-008 | `useMessages` に `currentUserId` と既読マーク処理を追加 | フロントエンド基盤 | F-003, F-004 | 1h | ✅ 完了 |
 | F-009 | `layout.tsx` 更新 + `BottomNav` バッジ実装 | UI | F-006, F-007 | 1.5h | 未着手 |
 | F-010 | `MatchListItem` バッジ実装 + `matches/page.tsx` 更新 | UI | F-006 | 1h | 未着手 |
 | F-011 | `ChatView` に既読マーク追加 | UI | F-008 | 0.5h | 未着手 |

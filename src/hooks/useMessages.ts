@@ -2,11 +2,12 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { markAsReadAction } from "@/lib/actions/messages";
 import type { Message } from "@/types";
 
 export function useMessages(
   matchId: string,
-  currentUserId: string | undefined, // F-012 で string に変更。F-008 で既読マーク処理を追加する
+  currentUserId: string | undefined, // F-012 で string に変更
   initialMessages: Message[]
 ) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
@@ -58,6 +59,19 @@ export function useMessages(
               }
               return [...prev, newMsg];
             });
+
+            // 相手からのメッセージ受信時に既読マーク（fire-and-forget）
+            if (
+              currentUserId &&
+              newMsg.sender_id &&
+              newMsg.sender_id !== currentUserId
+            ) {
+              markAsReadAction(matchId).then((result) => {
+                if (result.error) {
+                  console.error("[markAsReadAction]", result.error);
+                }
+              });
+            }
           }
         )
         .subscribe((status, err) => {
