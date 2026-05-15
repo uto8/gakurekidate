@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { useMessages } from "@/hooks/useMessages";
-import { sendMessageAction } from "@/lib/actions/messages";
+import { markAsReadAction, sendMessageAction } from "@/lib/actions/messages";
 import { formatMessageTime, formatMessageDate } from "@/lib/utils";
 import MessageBubble from "./MessageBubble";
 import DateSeparator from "./DateSeparator";
@@ -49,6 +49,13 @@ export default function ChatView({
   );
   const bottomRef = useRef<HTMLDivElement>(null);
   const isPartnerDeleted = partner.deleted_at !== null;
+
+  // マウント時に既読マーク（fire-and-forget）
+  useEffect(() => {
+    markAsReadAction(matchId).then((result) => {
+      if (result.error) console.error("[markAsReadAction on mount]", result.error);
+    });
+  }, [matchId]);
 
   // メッセージ更新時に最下部へスクロール
   useEffect(() => {
