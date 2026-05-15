@@ -28,6 +28,7 @@ export async function POST(req: NextRequest) {
     .insert({ from_user_id: user.id, to_user_id: toUserId });
 
   if (likeError) {
+    console.log("===likeError", likeError)
     if (likeError.code === "23505") {
       return NextResponse.json({ error: "すでにいいね済みです" }, { status: 409 });
     }
@@ -41,6 +42,9 @@ export async function POST(req: NextRequest) {
     .eq("from_user_id", toUserId)
     .eq("to_user_id", user.id)
     .maybeSingle();
+  console.log("===reverseLike", reverseLike)
+  console.log("==toUserId", toUserId)
+  console.log("===user", user.id)
 
   if (!reverseLike) {
     return NextResponse.json({ matched: false });
@@ -57,6 +61,7 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (matchError) {
+    console.log(matchError)
     // 冪等性: 既存の match を返す
     if (matchError.code === "23505") {
       const { data: existingMatch } = await supabase
