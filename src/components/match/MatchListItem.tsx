@@ -11,6 +11,7 @@ type Props = {
   avatarUrl?: string | null;
   deleted?: boolean;
   href: string;
+  unreadCount?: number;
 };
 
 function Avatar({
@@ -58,7 +59,9 @@ export default function MatchListItem({
   avatarUrl,
   deleted = false,
   href,
+  unreadCount,
 }: Props) {
+  const badge = unreadCount ?? 0;
   return (
     <Link
       href={href}
@@ -98,6 +101,12 @@ export default function MatchListItem({
           {lastMessage ?? "メッセージを送ってみましょう"}
         </p>
       </div>
+
+      {badge > 0 && (
+        <span className="min-w-[20px] h-5 px-1.5 bg-gk-error text-white text-[11px] font-bold rounded-full flex items-center justify-center leading-none shrink-0">
+          {badge > 99 ? "99+" : badge}
+        </span>
+      )}
     </Link>
   );
 }

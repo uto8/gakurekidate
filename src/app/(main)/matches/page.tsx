@@ -38,6 +38,7 @@ export default async function MatchesPage() {
                 avatarUrl={match.partner.photo_url}
                 deleted={match.partner.deleted_at !== null}
                 href={`/chat/${match.id}`}
+                unreadCount={match.unread_count}
               />
             </li>
           ))}

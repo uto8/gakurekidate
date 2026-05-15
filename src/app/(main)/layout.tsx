@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import { getTotalUnreadCountAction } from "@/lib/actions/messages";
 import BottomNav from "@/components/layout/BottomNav";
 
 export default async function MainLayout({
@@ -26,10 +27,12 @@ export default async function MainLayout({
     redirect("/onboarding");
   }
 
+  const { data: totalUnread } = await getTotalUnreadCountAction(user.id);
+
   return (
     <div className="flex flex-col min-h-screen">
       <main className="flex-1 pb-16">{children}</main>
-      <BottomNav />
+      <BottomNav userId={user.id} initialUnreadCount={totalUnread ?? 0} />
     </div>
   );
 }

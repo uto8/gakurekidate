@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useUnreadCount } from "@/hooks/useUnreadCount";
 
 const navItems = [
   {
@@ -43,14 +44,21 @@ const navItems = [
   },
 ];
 
-export default function BottomNav() {
+type Props = {
+  userId: string;
+  initialUnreadCount: number;
+};
+
+export default function BottomNav({ userId, initialUnreadCount }: Props) {
   const pathname = usePathname();
+  const unreadCount = useUnreadCount(userId, initialUnreadCount);
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-gk-base border-t border-gk-border z-40">
       <div className="max-w-[480px] mx-auto flex items-center justify-around h-16">
         {navItems.map((item) => {
           const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
+          const isMatches = item.href === "/matches";
           return (
             <Link
               key={item.href}
@@ -60,7 +68,14 @@ export default function BottomNav() {
                 isActive ? "text-gk-gold" : "text-gk-muted hover:text-gk-sub"
               )}
             >
-              {item.icon}
+              <div className="relative">
+                {item.icon}
+                {isMatches && unreadCount > 0 && (
+                  <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-gk-error text-white text-[10px] font-bold rounded-full flex items-center justify-center leading-none">
+                    {unreadCount > 99 ? "99+" : unreadCount}
+                  </span>
+                )}
+              </div>
               <span className="text-[11px]">{item.label}</span>
             </Link>
           );
