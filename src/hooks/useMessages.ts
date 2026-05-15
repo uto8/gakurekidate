@@ -12,6 +12,8 @@ export function useMessages(
 ) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const initialized = useRef(false);
+  // createClient() はレンダリングのたびに呼ばない（useUnreadCount と同じパターン）
+  const supabaseRef = useRef(createClient());
 
   useEffect(() => {
     if (!initialized.current) {
@@ -21,15 +23,17 @@ export function useMessages(
   }, [initialMessages]);
 
   useEffect(() => {
-    const supabase = createClient();
+    const supabase = supabaseRef.current;
     let channel: ReturnType<typeof supabase.channel> | null = null;
+    let cancelled = false;
 
     async function subscribe() {
       // セッションが確立してから購読開始（Realtime WebSocket の認証に必要）
       const {
         data: { session },
       } = await supabase.auth.getSession();
-      if (!session) return;
+      // クリーンアップが先に走った場合は購読しない
+      if (!session || cancelled) return;
 
       channel = supabase
         .channel(`messages:${matchId}`)
@@ -84,7 +88,8 @@ export function useMessages(
     subscribe();
 
     return () => {
-      channel?.unsubscribe();
+      cancelled = true;
+      if (channel) supabase.removeChannel(channel);
     };
   }, [matchId]);
 
