@@ -7,7 +7,7 @@ import type { Message } from "@/types";
 
 export function useMessages(
   matchId: string,
-  currentUserId: string | undefined, // F-012 で string に変更
+  currentUserId: string,
   initialMessages: Message[]
 ) {
   const [messages, setMessages] = useState<Message[]>(initialMessages);

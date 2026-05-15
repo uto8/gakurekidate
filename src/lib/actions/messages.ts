@@ -75,6 +75,7 @@ export async function getMatchAction(
       partner,
       created_at: matchRow.created_at,
       last_message: null,
+      unread_count: 0,
     },
     error: null,
   };

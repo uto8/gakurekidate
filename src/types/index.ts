@@ -23,7 +23,7 @@ export type Match = {
   partner: Profile;
   created_at: string;
   last_message: string | null;
-  unread_count?: number; // F-012 で required に変更する
+  unread_count: number;
 };
 
 export type Message = {
